@@ -4,7 +4,29 @@ class App extends Component {
 
   state = {
     count: 0,
-    isOn: false
+    isOn: false,
+    x: null,
+    y: null,
+  }
+
+  componentDidMount() {
+    document.title= `You have been clicked ${this.state.count} times`
+    window.addEventListener('mousemove', this.handleMouseMove)
+  }
+
+  componentDidUpdate() {
+    document.title= `You have been clicked ${this.state.count} times`
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handleMouseMove)
+  }
+
+  handleMouseMove = event => {
+    this.setState({
+      x: event.pageX,
+      y: event.pageY
+    })
   }
 
   //  USE STATE
@@ -45,6 +67,9 @@ render() {
       }}
       onClick={this.toggleLight}
     />
+    <h2> Mouse Position</h2>
+    <p> position: {this.state.x}</p>
+    <p> position: {this.state.y}</p>
     </>
    )
   }
